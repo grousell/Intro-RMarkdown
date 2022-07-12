@@ -69,6 +69,15 @@ h4 {
   font-size: 75%;
 }
 
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
 &lt;/style&gt;
 
 
@@ -76,9 +85,10 @@ h4 {
 ## Introduction to RMarkdown
 ### Greg Rousell - Data User Group
 
-![duglogo](https://github.com/grousell/Intro-RMarkdown/blob/main/images/dugheader.jpg?raw=true)
+&lt;img src = "images/dugheader.jpg"/&gt;
+
 ---
-class: left, middle
+class: left
 
 ## Introduction to R Markdown
 ### Agenda
@@ -115,16 +125,19 @@ https://grousell.github.io/Intro-RMarkdown
 - Easily reproduce analyses and reports for different groups
 
 ---
-class: center, middle
 ## Getting Started
 
-![](images/start_document.png)
+.center2[
+&lt;img src="images/start_document.png" width="90%" /&gt;
+]
 
 ---
-class: center, middle
 ## Getting Started
 
-![](images/start_document_2.png)
+.center2[
+&lt;img src="images/start_document_2.png" width="90%" /&gt;
+]
+
 
 ---
 ## Basics
@@ -185,10 +198,13 @@ class: center, middle
 ]
 
 ---
-class: center, middle
+
 ## Adding R Code
 
-&lt;img src = "images/insert_r_chunk_3.png" width = 80%/&gt;
+.center2[
+&lt;img src="images/insert_r_chunk_3.png" width="120%" /&gt;
+]
+
 
 ---
 ## Charts
@@ -196,9 +212,9 @@ class: center, middle
 
 
 ```r
-chart &lt;- df %&gt;% 
-  count (session_useful) %&gt;% 
-  mutate (perc = n / sum (n)) %&gt;% 
+chart &lt;- df |&gt; 
+  count (session_useful) |&gt; 
+  mutate (perc = n / sum (n)) |&gt; 
   ggplot (aes (session_useful, perc)) +
   geom_col() +
   scale_y_continuous(labels = scales::percent_format(accuracy = 1),
@@ -213,7 +229,7 @@ chart &lt;- df %&gt;%
 ---
 ## Charts
 
-![](index_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Charts
@@ -221,22 +237,22 @@ chart &lt;- df %&gt;%
 &lt;img src = "images/chart_1.png" height=180px/&gt;
 ]
 .pull-right[
-![](index_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](index_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 ]
 
 ---
-class: center, middle
+class: left
 ## Charts
 
 &lt;img src = "images/chart_2.png" height=180px/&gt;
 
-![](index_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+![](index_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 ---
 ## Practice
 
 * In practice rmd file, add a new chuck of R code and read in some data
-  * df &lt;- read_csv ("https://bit.ly/lsirm_data")
+  * df &lt;- read_csv ("https://t.ly/7hzC")
 * Create quick plot and insert into document
 
 ---
@@ -244,9 +260,9 @@ class: center, middle
 
 
 ```r
-table &lt;- df %&gt;% 
-  count (session_useful) %&gt;% 
-  rename (`I found the session useful` = session_useful) %&gt;% 
+table &lt;- df |&gt; 
+  count (session_useful) |&gt; 
+  rename (`I found the session useful` = session_useful) |&gt; 
   mutate (Percent = scales::percent (n / sum (n)) )
 
 table
@@ -268,7 +284,7 @@ table
 
 
 ```r
-table %&gt;% 
+table |&gt; 
   kable()
 ```
 
@@ -310,15 +326,14 @@ table %&gt;%
 &lt;/table&gt;
 
 ---
-## Tables
-### Formatting with `kableExtra`
+## Tables: `kableExtra`
 
 http://haozhu233.github.io/kableExtra/awesome_table_in_html.html
 
 
 ```r
-table %&gt;% 
-  kable() %&gt;% 
+table |&gt; 
+  kable() |&gt; 
   kable_styling(position = "center", font_size = 25)
 ```
 
@@ -360,14 +375,13 @@ table %&gt;%
 &lt;/table&gt;
 
 ---
-## Tables
-### Formatting with `kableExtra`
+## Tables: `kableExtra`
 
 
 ```r
-table %&gt;%
-  kable(align = c ("lcc")) %&gt;% 
-  kable_styling(font_size = 25) %&gt;% 
+table |&gt;
+  kable(align = c ("lcc")) |&gt; 
+  kable_styling(font_size = 25) |&gt; 
   column_spec(2:3, width = "8em")
 ```
 
@@ -409,27 +423,25 @@ table %&gt;%
 &lt;/table&gt;
 
 ---
-## Tables
-### Formatting with `kableExtra` and `formattable`
+## Tables: `kableExtra`
 
 
 ```r
-table %&gt;%
+table |&gt;
   mutate (Percent = cell_spec (Percent, 
                                background = "#FA19C3"),
           n = ifelse (n &gt; 40, 
                       cell_spec (n, color = "green"),
-                      cell_spec (n, color = "red"))) %&gt;% 
+                      cell_spec (n, color = "red"))) |&gt; 
   kable(escape = FALSE, 
-        align = c ("lcc")) %&gt;% 
-  kable_styling(font_size = 25) %&gt;% 
+        align = c ("lcc")) |&gt; 
+  kable_styling(font_size = 25) |&gt; 
   column_spec(2:3, width = "8em")
 ```
 
 
 ---
-## Tables
-### Formatting with `kableExtra` and `formattable`
+## Tables: `kableExtra`
 
 &lt;table class="table" style="font-size: 25px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
@@ -467,6 +479,75 @@ table %&gt;%
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+
+---
+## Tables
+
+Other packages include:
+- `flextable`
+- `gt`
+- `formattable`
+
+
+---
+## Practice
+
+* In practice rmd file, add a new chuck of R code and insert table into document
+* Add some custome formatting
+  * https://bit.ly/kable_extra
+  * https://bit.ly/flextable
+
+---
+
+## Split Columns 
+
+&lt;img src = "images/multi_cols.PNG" width = 120% class = "center"/&gt;
+
+---
+
+## Split Columns 
+
+&lt;img src = "images/multi_cols_2.PNG" width = 120% class = "center"/&gt;
+
+---
+## Split Columns 
+
+
+
+.pull-left[
+The figure on the right shows Horsepower vs Miles per Gallon. 
+]
+.pull-right[
+&lt;img src = "images/plot.png"/&gt;
+]
+
+---
+## Multiple Reports - One File
+
+
+```r
+for (sch in unique(df$school)) {  
+  rmarkdown::render("Advanced_PDF_Example.Rmd",  
+                    output_file =  paste(sch, "_report.pdf", sep=''),   
+                    output_dir = './reports/')  
+}
+```
+
+---
+## Practice
+
+* Create custom report using multi-columns
+* Try loop to create multiple reports
+
+---
+## Questions?
+
+
+
+
+
+
+
 
 
     </textarea>
