@@ -1,0 +1,74 @@
+---
+title: "Introduction to RMarkdown"
+author: "Greg Rousell"
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+class: center, middle
+
+```{css echo=FALSE}
+
+.remark-slide-content {
+  font-size: 32px;
+  font-family: 'optima', sans-serif;
+}
+
+h1 {
+  font-family: 'optima', sans-serif;
+  font-size: 30px;
+  background-color: #0089cf;
+  color: white;
+  font-weight: bold;
+  text-align:center;
+  padding: 22px; /* padding will fill in color to edges*/
+}
+
+h2 {
+  font-family: 'optima', sans-serif;
+  background-color: #4cacdd;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px; /* padding will fill in color to edges*/
+}
+
+h3 {
+  font-family: 'optima', sans-serif;
+  background-color: #99cfeb;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px; /* padding will fill in color to edges*/
+}
+
+
+.remark-slide-content:after {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    right: 1060px;
+    height: 85px;
+    width: 120px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("https://github.com/grousell/GEDSB_Visual_Identity/blob/main/Images/LearnLeadInspire_FullLogo.png?raw=true");
+}
+
+.footnote {
+  text-align: right;
+  position: absolute;
+  bottom: 5px;
+  right: 35px;
+  padding-right: 4em;
+  font-size: 75%;
+}
+
+```
