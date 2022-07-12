@@ -1,0 +1,103 @@
+
+/*Size Logo*/
+
+.gdbar img {
+  width: 200px !important;
+  height: 200px !important;
+  margin: 8px 8px;
+}
+
+.gdbar {
+  width: 350px !important;
+  height: 215px !important;
+}
+
+/* Logo at slide footer*/
+slides > slide:not(.nobackground):before {
+  width: 100px;
+  height: 100px;
+  background-size: 100px 100px;
+}
+
+
+.emphasized {
+  font-size: 1.2em;
+}
+
+body p {
+  color: black;
+  font-family: verdana;
+  font-size: 12px;
+}
+
+/* Unordered list*/
+ul {
+  color: black;
+  font-family: verdana;
+  font-size: 25px;
+}
+
+/* Ordered list*/
+ol {
+  color: black;
+  font-family: verdana;
+  font-size: 25px;
+}
+
+
+
+h1 {
+  color: black;
+  text-align: left;
+  font-weight: bold;
+  font-size: 45px;
+}
+h2 {
+  color: black;
+  text-align: left;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+h3 {
+  color: black;
+  text-align: left;
+  font-weight: bold;
+  font-size: 35px;
+}
+
+h4 {
+  color: black;
+  text-align: left;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+p {
+  color: black;
+  font-family: verdana;
+  font-size: 20px;
+}
+
+table {
+  color: black;
+  font-family: verdana;
+  font-size: 20px;
+}
+
+/* Adding HTML Columns */
+
+.col2 {
+  -webkit-columns: 2 200px; /* chrome, safari */
+  -moz-columns: 2 200px;    /* firefox */
+  columns: 2 200px;         /* number of columns and width in pixels*/
+  
+}
+
+.col3 {
+  -webkit-columns: 3 100px;
+  -moz-columns: 3 100px;
+  columns: 3 100px;
+  
+}
+
