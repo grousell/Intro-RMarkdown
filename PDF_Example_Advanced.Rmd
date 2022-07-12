@@ -1,0 +1,86 @@
+---
+fontsize: 12pt
+header-includes:
+   - \usepackage{fontspec}
+   - \setmainfont{Arial}
+   - \usepackage{fancyhdr}
+   - \setlength{\headheight}{15pt}
+   - \usepackage{pdflscape}
+   - \usepackage{booktabs}
+   - \usepackage{longtable}
+   - \setlength{\footskip}{37pt}
+geometry: "left=1.5cm,right=1.5cm,bottom=1.5cm"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    
+---
+
+```{r filter_data, echo=FALSE}
+
+temp <- df %>% 
+  dplyr::filter (school == sch)
+
+n_students <- length (temp$RespondentID)
+
+```
+
+\thispagestyle{empty}
+\pagestyle{fancy}
+\rhead{Introduction to RMarkdown} <!-- Short title of Report -->
+\lhead{}
+\rfoot{\thepage}
+\cfoot{\includegraphics[width = 1cm]{images/dug_small}}
+
+\begin{minipage}[]{0.3\textwidth}
+\includegraphics[width = 4cm]{images/dug_small}
+\end{minipage}
+\begin{minipage}[]{0.7\textwidth}
+%%% <!-- Title of Report-->
+\LARGE {Introduction to RMarkdown}\\
+%%% <!-- Title of Report Line 2-->
+\Large{Data User Group}\\
+\Large{`r Sys.Date()`}\\
+\end{minipage}
+\vspace{2cm}
+\LARGE
+Survey Results for `r sch`
+\raggedright  <!--removes hyphenation  -->
+\vspace{0.5cm}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\normalsize
+# Background
+This document is intended as an example of using RMarkdown and LaTex to create professional looking reports.   
+
+In total there were `r n_students` students from `r sch`. 
+
+
+# Results
+
+Participants from `r sch` were asked four questions about the professional development session:  
+- The session was applicable to my work  
+- The session changes my thinking  
+- The session reinforced my thinking  
+- The session was useful  
+
+The charts below show the percentage of respondents in each category, by the four questions. 
+```{r chart, echo=FALSE}
+summary_table %>% 
+  dplyr::filter(school == sch) %>% 
+  ggplot (aes(response, Percent)) + 
+  geom_col (fill = "#04559F") + 
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1),
+                     limits = c(0,1)) + 
+  geom_text (aes (label = scales::percent(Percent, accuracy = 1.1)),
+             vjust = -1,
+             size = 3) +
+  labs (x = "", 
+        y = "Pecent") + 
+  facet_wrap (~question, scales = "free")
+```

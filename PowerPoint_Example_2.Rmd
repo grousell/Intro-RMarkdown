@@ -1,0 +1,74 @@
+---
+title: "PowerPoint Example"
+author: "Greg Rousell"
+date: "13/07/2020"
+output: 
+  powerpoint_presentation:
+    reference_doc: PowerPoint_Template.pptx
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+
+library(flextable)
+library(tidyverse)
+
+```
+
+## R Markdown
+
+This is an R Markdown document that knits to a PowerPoint template. Using this feature you can control the appearance of your documents. 
+
+## Slide with Bullets
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+## Slide with Table
+
+The `flextable` package will format R data frames into tables. For more information on `flextable` see: https://ardata-fr.github.io/flextable-book/index.html
+
+```{r flextable}
+
+summary_table <- iris %>% 
+  group_by (Species) %>% 
+  summarise (`Sepal Length` = round (mean (Sepal.Length),1),
+             `Sepal Width` = round (mean (Sepal.Width),1)
+             ) 
+
+width (summary_table %>% flextable(col_keys = c("Species", "Sepal Length", "Sepal Width")),
+       j = 1, 
+       width = 1)
+```
+
+## Slide with Plot
+
+```{r plot, echo=FALSE}
+summary_plot <- summary_table %>% 
+  ggplot (aes(x = Species, y = `Sepal Length`)) + 
+  geom_col (fill = "blue") + 
+  theme_minimal()
+  
+summary_plot
+```
+
+## Columns
+
+:::::: {.columns}
+::: {.column width="40%"}
+```{r flextable_2}
+width (summary_table %>% flextable(col_keys = c("Species", "Sepal Length", "Sepal Width")),
+       j = 1, 
+       width = 1)
+```
+:::
+
+::: {.column width="60%"}
+```{r plot_2, echo=FALSE, fig.width=4}
+summary_plot
+```
+:::
+::::::
+
+
