@@ -7,6 +7,8 @@
     <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
     <link href="site_libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="site_libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
   </head>
   <body>
     <textarea id="source">
@@ -42,13 +44,21 @@ h2 {
 
 h3 {
   font-family: 'optima', sans-serif;
-  background-color: #bcc5d8;
-  color: black;
-  font-size: 16px;
+  background-color: #8F9CB9;
+  color: white;
+  font-size: 14px;
   font-weight: bold;
-  padding: 10px; /* padding will fill in color to edges*/
+  padding: 0px; /* padding will fill in color to edges*/
 }
 
+h4 {
+  font-family: 'optima', sans-serif;
+  background-color: #bcc5d8;
+  color: black;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 0px; /* padding will fill in color to edges*/
+}
 
 .footnote {
   text-align: right;
@@ -93,7 +103,7 @@ class: left, middle
 
 - All the materials are hosted on my GitHub page: 
 
-https://github.com/grousell/Intro-Rmarkdown
+https://grousell.github.io/Intro-RMarkdown
 
 ---
 
@@ -103,6 +113,362 @@ https://github.com/grousell/Intro-Rmarkdown
 - Provides environment for data anaysis and notes
 - Creates high quality reports for distribution 
 - Easily reproduce analyses and reports for different groups
+
+---
+class: center, middle
+## Getting Started
+
+![](images/start_document.png)
+
+---
+class: center, middle
+## Getting Started
+
+![](images/start_document_2.png)
+
+---
+## Basics
+
+.pull-left[
+
+`*Italics*`  
+`**Bold**`  
+`***Bold and Italics***`
+`'Inline Code'`  
+`# First Level Heading`  
+`# Second Level Heading`  
+`![](images/rstudio.png)` 
+]
+
+.pull-right[
+*Italics*  
+**Bold**  
+***Bold and Italics***  
+`Inline Code`  
+### First Level Heading  
+#### Second Level Heading  
+![](images/rstudio.png)
+]
+
+---
+
+## Lists
+
+* Unordered lists are started with `*` or `-`  
+* Ordered lists begin with a number  
+* Sublists are created by indenting 4 spaces, or tab  
+
+.pull-left[
+&lt;img src = "images/list_1.png" width = 50%/&gt;
+]
+.pull-right[
+&lt;img src = "images/list_2.png"/&gt;
+]
+
+---
+## Practice
+
+* Open RStudio and a new RMarkdown file to create a PDF. 
+* Click "Run" and knit the file
+* Change some text and knit again
+* Try different formats (HTML, Word, PowerPoint)
+
+---
+## Adding R Code
+
+.pull-left[
+&lt;img src = "images/insert_r_chunk.png"/&gt;
+]
+
+.pull-right[
+&lt;img src = "images/insert_r_chunk_2.png"/&gt;
+]
+
+---
+class: center, middle
+## Adding R Code
+
+&lt;img src = "images/insert_r_chunk_3.png" width = 80%/&gt;
+
+---
+## Charts
+
+
+
+```r
+chart &lt;- df %&gt;% 
+  count (session_useful) %&gt;% 
+  mutate (perc = n / sum (n)) %&gt;% 
+  ggplot (aes (session_useful, perc)) +
+  geom_col() +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1),
+                     limits = c(0,0.5)) +
+  geom_text (aes (label = scales::percent(perc)),
+             vjust = -1) +
+  labs (title = "I found the session useful", 
+        x = "",
+        y = "Percent")
+```
+
+---
+## Charts
+
+![](index_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
+---
+## Charts
+.pull-left[
+&lt;img src = "images/chart_1.png" height=180px/&gt;
+]
+.pull-right[
+![](index_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+
+---
+class: center, middle
+## Charts
+
+&lt;img src = "images/chart_2.png" height=180px/&gt;
+
+![](index_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+---
+## Practice
+
+* In practice rmd file, add a new chuck of R code and read in some data
+  * df &lt;- read_csv ("https://bit.ly/lsirm_data")
+* Create quick plot and insert into document
+
+---
+## Tables
+
+
+```r
+table &lt;- df %&gt;% 
+  count (session_useful) %&gt;% 
+  rename (`I found the session useful` = session_useful) %&gt;% 
+  mutate (Percent = scales::percent (n / sum (n)) )
+
+table
+```
+
+```
+## # A tibble: 5 x 3
+##   `I found the session useful`     n Percent
+##   &lt;fct&gt;                        &lt;int&gt; &lt;chr&gt;  
+## 1 1 - Not at All                   8 2.9%   
+## 2 2                               25 9.1%   
+## 3 3                               39 14.2%  
+## 4 4                              119 43.3%  
+## 5 5 - Significantly               84 30.5%
+```
+
+---
+## Tables
+
+
+```r
+table %&gt;% 
+  kable()
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; I found the session useful &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; n &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Percent &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 - Not at All &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2.9% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 9.1% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14.2% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 119 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 43.3% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 - Significantly &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 84 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 30.5% &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+## Tables
+### Formatting with `kableExtra`
+
+http://haozhu233.github.io/kableExtra/awesome_table_in_html.html
+
+
+```r
+table %&gt;% 
+  kable() %&gt;% 
+  kable_styling(position = "center", font_size = 25)
+```
+
+&lt;table class="table" style="font-size: 25px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; I found the session useful &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; n &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Percent &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 - Not at All &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2.9% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 9.1% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14.2% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 119 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 43.3% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 - Significantly &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 84 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 30.5% &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+## Tables
+### Formatting with `kableExtra`
+
+
+```r
+table %&gt;%
+  kable(align = c ("lcc")) %&gt;% 
+  kable_styling(font_size = 25) %&gt;% 
+  column_spec(2:3, width = "8em")
+```
+
+&lt;table class="table" style="font-size: 25px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; I found the session useful &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; n &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Percent &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 - Not at All &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 2.9% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 9.1% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 14.2% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 119 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 43.3% &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 - Significantly &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 84 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 30.5% &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+## Tables
+### Formatting with `kableExtra` and `formattable`
+
+
+```r
+table %&gt;%
+  mutate (Percent = cell_spec (Percent, 
+                               background = "#FA19C3"),
+          n = ifelse (n &gt; 40, 
+                      cell_spec (n, color = "green"),
+                      cell_spec (n, color = "red"))) %&gt;% 
+  kable(escape = FALSE, 
+        align = c ("lcc")) %&gt;% 
+  kable_styling(font_size = 25) %&gt;% 
+  column_spec(2:3, width = "8em")
+```
+
+
+---
+## Tables
+### Formatting with `kableExtra` and `formattable`
+
+&lt;table class="table" style="font-size: 25px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; I found the session useful &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; n &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Percent &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 - Not at All &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; &lt;span style="     color: red !important;"&gt;8&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; &lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FA19C3 !important;"&gt;2.9%&lt;/span&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; &lt;span style="     color: red !important;"&gt;25&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; &lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FA19C3 !important;"&gt;9.1%&lt;/span&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; &lt;span style="     color: red !important;"&gt;39&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; &lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FA19C3 !important;"&gt;14.2%&lt;/span&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; &lt;span style="     color: green !important;"&gt;119&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; &lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FA19C3 !important;"&gt;43.3%&lt;/span&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 - Significantly &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; &lt;span style="     color: green !important;"&gt;84&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; &lt;span style="     border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FA19C3 !important;"&gt;30.5%&lt;/span&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
