@@ -1,0 +1,116 @@
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{fancyhdr} %package for fancy headers
+\usepackage{color} %allows me to save colors
+\usepackage{wrapfig}
+\usepackage{ragged2e}
+\usepackage{anysize} %%For use with marginsize
+\usepackage{wallpaper} %%For ULCornerWallPaper - headers and footers
+\usepackage{fontspec}
+\usepackage{tcolorbox}
+
+\setmainfont[Ligatures=TeX]{Optima LT Std}
+\setlength{\headheight}{15pt}
+\marginsize{1.5cm}{1.5cm}{1.5cm}{1.5cm} %%Left, Right, Top,BOttom
+\hyphenpenalty=10000
+
+\definecolor {MyBlue}{cmyk}{.95,.75,.05,0}
+\definecolor{gedsbGreen2}{HTML}{8CE079}
+\definecolor{gedsbGreen}{HTML}{59AD46}
+\definecolor{gedsbBlue}{HTML}{04559F}
+\definecolor{gedsbBlue2}{HTML}{51A2EC}
+
+\mdfdefinestyle{BasicHeadline}{
+   backgroundcolor = gedsbBlue,
+   fontcolor = white,
+   linecolor=none
+   }
+
+\mdfdefinestyle{HeadingBoxTrue}{%
+    roundcorner=10pt,
+    innertopmargin=\baselineskip,
+    innerbottommargin=\baselineskip,
+    innerrightmargin=20pt,
+    innerleftmargin=20pt,
+    backgroundcolor=gedsbGreen2,
+    linecolor=none,
+    frametitlebackgroundcolor = gedsbGreen
+    }
+
+% New Box Type
+
+\newtcolorbox{headerbox}{
+  colback=gedsbBlue,
+  colframe=gedsbBlue,
+  coltext=white,
+  boxsep=3pt,
+  arc=4pt}
+  
+\newtcolorbox{textbox1}{
+  title=The questions were designed to:, 
+  colbacktitle=gedsbGreen,
+  coltitle=black,
+  colback=gedsbGreen2,
+  colframe=gedsbGreen,
+  coltext=black,
+  boxsep=3pt,
+  arc=4pt}
+  
+\newtcolorbox{textbox}{
+  colback=gedsbGreen2,
+  colframe=gedsbGreen,
+  coltext=black,
+  boxsep=3pt,
+  arc=6pt}
+  
+% Columns
+\newenvironment{cols}[1][]{}{}
+
+\newenvironment{col}[1]{\begin{minipage}{#1}\ignorespaces}{%
+  \end{minipage}
+  \ifhmode\unskip\fi
+  \aftergroup\useignorespacesandallpars
+  }
+
+\def\useignorespacesandallpars#1\ignorespaces\fi{%
+#1\fi\ignorespacesandallpars}
+
+\makeatletter
+\def\ignorespacesandallpars{%
+  \@ifnextchar\par
+    {\expandafter\ignorespacesandallpars\@gobble}%
+    {}%
+}
+\makeatother
+
+  
+  
+% \setlength{\footskip}{84.65805pt}
+
+\pagestyle{fancy}
+\rhead{\bfseries Introduction to RMarkdown} %makes right header %requires pagestyle{fancy}
+\lhead{} %makes right header %requires pagestyle{fancy}
+
+
+\rfoot{Page \thepage}
+\cfoot {\includegraphics[height=1.5cm]{images/hex-rmarkdown.png}}
+
+\setlength{\footskip}{60.3164pt}
+
+% \LLCornerWallPaper{0.4}{Images/GEDSB_Tagline_Grey} % Needs Wallpaper package
+% \LRCornerWallPaper{0.2}{Images/GEDSB_LOGO_Colour} 
+
+% :::::: {.cols data-latex=""}
+% 
+% ::: {.col data-latex="{0.55\textwidth}"}
+% Column 1
+% :::
+% 
+% ::: {.col data-latex="{0.02\textwidth}"}
+% \
+% an empty Div (with a white space), serving as a column separator
+% :::
+% 
+% ::: {.col data-latex="{0.4\textwidth}"}
+% Column 2
+% :::
+% ::::::
