@@ -50,11 +50,8 @@ Survey Results for `r sch`
 
 \newpage
 
-\tableofcontents
-
-\newpage
-
 \normalsize
+
 # Background
 This document is intended as an example of using RMarkdown and LaTex to create professional looking reports.   
 

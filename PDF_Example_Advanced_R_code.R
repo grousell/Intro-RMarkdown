@@ -5,6 +5,10 @@ library(tidyverse)
 library(scales)
 library(rmarkdown)
 
+increase <- "increase in percentage"
+decrease <- "decrease in percetnage"
+no_change <- "no change"
+
 # ggplot theme ------------------------------------------------------------
 
 theme_update(
