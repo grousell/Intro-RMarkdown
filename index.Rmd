@@ -93,7 +93,7 @@ suppressPackageStartupMessages(library(knitr))
 ```
 
 ## Introduction to RMarkdown
-### Greg Rousell - Data User Group
+### Greg Rousell
 
 <img src = "images/dugheader.jpg"/>
 
