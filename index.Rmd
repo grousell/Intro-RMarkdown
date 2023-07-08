@@ -95,7 +95,7 @@ suppressPackageStartupMessages(library(knitr))
 ## Introduction to RMarkdown
 ### Greg Rousell
 
-<img src = "images/dugheader.jpg"/>
+<img src = "images/lsirm_logo.png"/>
 
 ---
 class: left
