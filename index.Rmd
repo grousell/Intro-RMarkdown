@@ -418,7 +418,9 @@ plot <- df |>
   theme_minimal()
 
 ggsave (plot, 
-        filename = "images/plot.png")
+        filename = "images/plot.png", 
+        width = 3, 
+        height = 3)
 ```
 
 .pull-left[
